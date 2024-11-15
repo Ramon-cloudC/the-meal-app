@@ -1,4 +1,12 @@
 
+/* Universal style */
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Russo One", sans-serif;
+}
+
 .hidden {
     display: none;
 }

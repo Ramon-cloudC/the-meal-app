@@ -1,6 +1,4 @@
 
-
-
     document.querySelector(".button-get-menu").addEventListener("click", getRecipe);
     
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata`;
@@ -8,37 +6,43 @@
     const titleMeal = document.querySelector(".title-meal");
     const image = document.getElementById("image");
     const instructionsMeal = document.querySelector(".instructions");
-    const body = document.getElementsByTagName('body'); 
-    console.log(body[0].children[3]);       // Access the hidden div that'll show the meal to get the number of children.
+    const body = document.getElementsByTagName('body');
+    
+    // Access the hidden div that'll show the meal to get the number of children.
+    console.log(body[0].children[3]);       
+
     const showMeal = document.getElementById('show-meal');
     const showInstructions = document.getElementById('show-instructions') 
 
-
-    
-    
-    
     async function getRecipe(){
 
         const response = await fetch(url);      
-        const ingredientValue = inputIngredient.value; 
-        const hiddenElements = document.querySelectorAll(".hidden");        //Select all the hidden elements.
-        let toggleElement = true;       // Toggle to show/hide hiddenElements.
+        const ingredientValue = inputIngredient.value;
+        //Select all the hidden elements.
+        const hiddenElements = document.querySelectorAll(".hidden");
+        // Toggle to show/hide hiddenElements.        
+        let toggleElement = true;       
 
         try {
             if(!response.ok){
-                throw new Error("Error whilst fetching recipes");       //Throw error if the resonse is NOT ok.
+                //Throw error if the resonse is NOT ok.
+                throw new Error("Error whilst fetching recipes");       
             }
 
 
             if(hiddenElements){     
-                for(let hiddenElement of hiddenElements){       //If hiddenElements is true, show them.
+                //If hiddenElements is true, show them.
+                for(let hiddenElement of hiddenElements){       
                     hiddenElement.style.display = "inline";
                 }
             }
             
-            if(ingredientValue.trim().toLowerCase() === "arrabiata"){       //Input must be "arrabiata".
-                const data = await response.json();     //Await response and convert it to json.
+            //Input must be "arrabiata".
+            if(ingredientValue.trim().toLowerCase() === "arrabiata"){
+                //Await response and convert it to json.       
+                const data = await response.json();     
                 console.log(data.meals[0])
+
                 //Array that shows the ingridients and how I accessed them.
                 const arrayIngr = [
                     data.meals[0].strIngredient1 + ", " + data.meals[0].strMeasure1, 
@@ -57,16 +61,23 @@
                 const ingredientList = document.createElement("div");       //Create a div element.
                 const ingredientTitle = document.createElement("h4");       //Create an h4 element.
                 const ingridientUl = document.createElement("ul");          //Create an ul element.
-                ingredientList.id = "ingridients";      //Assign the id of "ingridients" to the div element.
-                ingredientTitle.id = "ingridient-title";        //Assign the id of "ingridient-title" to the h4 element.
-
-                showMeal.insertBefore(ingredientList, showInstructions);        //Insert the div before the instructions, within the showMeal element.
-                ingredientList.appendChild(ingridientUl);       //Append the ul list. 
-                showMeal.insertBefore(ingredientTitle, ingredientList);     //Insert the title before the list.
-
-                ingredientTitle.innerHTML = "Ingredients";      //Define the value of the h4 element.
+                //Assign the id of "ingridients" to the div element.
+                ingredientList.id = "ingridients";      
+                //Assign the id of "ingridient-title" to the h4 element.
+                ingredientTitle.id = "ingridient-title";        
                 
-                for(let i = 0; i < arrayIngr.length; i += 1){       //Loop through the ingridients array, create a li element for every item.
+                //Insert the div before the instructions, within the showMeal element.
+                showMeal.insertBefore(ingredientList, showInstructions);
+                //Append the ul list.         
+                ingredientList.appendChild(ingridientUl);       
+                //Insert the title before the list.
+                showMeal.insertBefore(ingredientTitle, ingredientList);     
+
+                //Define the value of the h4 element.
+                ingredientTitle.innerHTML = "Ingredients";      
+                
+                //Loop through the ingridients array, create a li element for every item.
+                for(let i = 0; i < arrayIngr.length; i += 1){       
                     console.log(arrayIngr[i]);
                     const listedIngridients = document.createElement("li");
                     listedIngridients.id = "ingredient"
@@ -74,25 +85,32 @@
                     ingridientUl.appendChild(listedIngridients);
                 }
 
-                const titleValue = data.meals[0].strMeal;       //Access the name of the dish.
-                const instructionsValue = data.meals[0].strInstructions;        //Access the instructions.
-                titleMeal.textContent = titleValue;     //Assign the name of the dish to the title of the meal.
-                instructionsMeal.textContent = instructionsValue;       //Same for the instructions.
-                inputIngredient.value = "";     //Reset the value of the input.
+                //Access the name of the dish.
+                const titleValue = data.meals[0].strMeal;       
+                //Access the instructions.
+                const instructionsValue = data.meals[0].strInstructions;
+                //Assign the name of the dish to the title of the meal.        
+                titleMeal.textContent = titleValue;     
+                 //Same for the instructions.
+                instructionsMeal.textContent = instructionsValue;
+                //Reset the value of the input.      
+                inputIngredient.value = "";     
             
                     } else {
-                         toggleElement = false;     //Assign toggle to false, and loop through the array of hiddenElements.
+                        //Assign toggle to false, and loop through the array of hiddenElements.
+                         toggleElement = false;     
                         if(!toggleElement){
                             for(let hiddenElement of hiddenElements){       
-                                 hiddenElement.style.display = "none";      //Don't display them.
+                                //Don't display them.
+                                 hiddenElement.style.display = "none";      
                                 }
 
                 //Hide or reset all the meal description.    
-
                 titleMeal.textContent = "";
                 instructionsMeal.textContent = "";
                 inputIngredient.value = "";
-                alert("No recipe found. Try again.");       //Alert message.
+                //Alert message.
+                alert("No recipe found. Try again.");       
             }
         }
         
