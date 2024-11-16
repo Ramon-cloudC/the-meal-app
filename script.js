@@ -16,6 +16,7 @@
 
     async function getRecipe(){
 
+        //Must await the fetch and save it to a variable.
         const response = await fetch(url);      
         const ingredientValue = inputIngredient.value;
         //Select all the hidden elements.
@@ -62,7 +63,7 @@
                 const ingredientTitle = document.createElement("h4");       //Create an h4 element.
                 const ingridientUl = document.createElement("ul");          //Create an ul element.
                 //Assign the id of "ingridients" to the div element.
-                ingredientList.id = "ingridients";      
+                ingredientList.id = "ingredients";      
                 //Assign the id of "ingridient-title" to the h4 element.
                 ingredientTitle.id = "ingridient-title";        
                 
@@ -77,10 +78,10 @@
                 ingredientTitle.innerHTML = "Ingredients";      
                 
                 //Loop through the ingridients array, create a li element for every item.
-                for(let i = 0; i < arrayIngr.length; i += 1){       
+                for(let i = 0; i < arrayIngr.length; i++){       
                     console.log(arrayIngr[i]);
                     const listedIngridients = document.createElement("li");
-                    listedIngridients.id = "ingredient"
+                    listedIngridients.classList.add("ingredient");
                     listedIngridients.innerHTML = arrayIngr[i];
                     ingridientUl.appendChild(listedIngridients);
                 }
