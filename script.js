@@ -34,7 +34,7 @@
             if(hiddenElements){     
                 //If hiddenElements is true, show them.
                 for(let hiddenElement of hiddenElements){       
-                    hiddenElement.style.display = "inline";
+                    hiddenElement.style.display = "flex";
                 }
             }
             
@@ -59,13 +59,14 @@
                 console.log(arrayIngr);
                 
                 image.src = "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg"
+                image.style.opacity = 1;
                 const ingredientList = document.createElement("div");       //Create a div element.
                 const ingredientTitle = document.createElement("h4");       //Create an h4 element.
                 const ingridientUl = document.createElement("ul");          //Create an ul element.
                 //Assign the id of "ingridients" to the div element.
                 ingredientList.id = "ingredients";      
                 //Assign the id of "ingridient-title" to the h4 element.
-                ingredientTitle.id = "ingridient-title";        
+                ingredientTitle.id = "ingredient-title";        
                 
                 //Insert the div before the instructions, within the showMeal element.
                 showMeal.insertBefore(ingredientList, showInstructions);
